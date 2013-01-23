@@ -1,7 +1,5 @@
 /*global d3, assetgraph*/
 
-
-debugger
 window.onload = function () {
     var svg = d3.select('.graph'),
         force = d3.layout.force()
