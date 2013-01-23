@@ -56,7 +56,7 @@ module.exports = function (name) {
             }
         });
 
-        assetGraph.findRelations({}, true).forEach(function (relation) {
+        assetGraph.findRelations().forEach(function (relation) {
             if ('idx' in relation.from && 'idx' in relation.to) {
                 var typeString = relationLabelByType[relation.type] || '';
                 if (typeof typeString === 'function') {
@@ -69,6 +69,9 @@ module.exports = function (name) {
                 });
             }
         });
+
+        // For some reason some data sets break if this is not done. WTF
+        data.relations.reverse();
 
         var dataString = 'var assetgraph = ' + JSON.stringify(data, undefined, 4);
 
