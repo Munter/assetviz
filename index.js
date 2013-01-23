@@ -41,7 +41,7 @@ module.exports = function (name) {
 
     return function drawGraph(assetGraph, cb) {
         var idx = 0,
-            vizGraph = new assetGraph.constructor({ root: './tpl' }),
+            vizGraph = new assetGraph.constructor({ root: Path.normalize(Path.dirname(module.filename) + '/tpl/') }),
             query = assetGraph.constructor.query;
 
         assetGraph.findAssets().forEach(function (asset) {
