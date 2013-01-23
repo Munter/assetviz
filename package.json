@@ -1,0 +1,27 @@
+{
+  "name": "assetviz",
+  "version": "0.0.1",
+  "description": "A graph visualization of the assets and relations in yout web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/munter/assetviz.git"
+  },
+  "keywords": [
+    "dependency",
+    "graph",
+    "asset",
+    "assetgraph",
+    "visualization"
+  ],
+  "author": "Peter Müller <munter@fumle.dk>",
+  "license": "BSD",
+  "dependencies": {
+    "assetgraph": "=1.3.2",
+    "optimist": "*"
+  },
+  "bin": "./bin/assetviz"
+}

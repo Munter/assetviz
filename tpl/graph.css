@@ -1,0 +1,33 @@
+body {
+    background: #F6F6F6;
+    padding:0;
+    margin:0;
+    font-family:helvetica,arial;
+    font-size: 10px;
+    overflow: hidden;
+}
+
+.graph {
+    width:100%;
+    height: 100%;
+}
+
+path {
+    stroke-width: 1;
+    stroke: #ccc;
+}
+
+text {
+    pointer-events: none;
+}
+
+circle {
+    fill: #ccc;
+    stroke: #666;
+    stroke-width: 1px;
+}
+
+circle.gif {
+    fill: #cfc;
+    stroke: #696;
+}
