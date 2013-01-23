@@ -114,7 +114,6 @@ module.exports = function (name) {
                 return "file://" + Path.normalize(targetFileName);
             })
             .writeAssetsToDisc({url: /^file:/})
-            .writeStatsToStderr()
             .run(function (err) {
                 if (err) {
                     console.error(err);

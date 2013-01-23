@@ -78,7 +78,7 @@ new AssetGraph({root: rootUrl})
     })
     .populate({followRelations: followRelationsQueryObj, startAssets: {type: 'Html', isFragment: true, isInitial: true}})
     .assetviz()
-    //.writeStatsToStderr()
+    .writeStatsToStderr()
     .run(function (err) {
         if (err) {
             throw err;
