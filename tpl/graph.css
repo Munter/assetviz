@@ -27,7 +27,36 @@ circle {
     stroke-width: 1px;
 }
 
-circle.gif {
-    fill: #cfc;
-    stroke: #696;
+circle.gif,
+circle.jpeg,
+circle.png,
+circle.ico,
+circle.imagesrcset {
+    fill: mediumorchid;
+}
+
+circle.javascript,
+circle.coffeescript {
+    fill: orange;
+}
+
+circle.json,
+circle.flash {
+    fill: yellow;
+}
+
+circle.xml,
+circle.atom,
+circle.rss {
+    fill: brown;
+}
+
+circle.css,
+circle.less,
+circle.stylus {
+    fill: palegreen;
+}
+
+circle.html {
+    fill: dodgerblue;
 }
