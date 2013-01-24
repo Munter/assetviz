@@ -2,6 +2,23 @@
 /*jshint onevar:false*/
 
 window.onload = function () {
+    // Fallback to show nothing. This shoudl probably be improved
+    window.assetgraph = assetgraph || {
+        assets: [],
+        relations: []
+    };
+
+    // Data preperation for simpler d3 code
+    assetgraph.relations.forEach(function (relation) {
+        var distance = 10 +
+            assetgraph.assets[relation.source].r +
+            assetgraph.assets[relation.target].r +
+            assetgraph.assets[relation.source].outgoing * 2 +
+            relation.type.length * 6;
+
+        relation.distance = distance;
+    });
+
     var svg = d3.select('.graph'),
         force = d3.layout.force()
             .nodes(d3.values(assetgraph.assets))
