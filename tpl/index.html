@@ -5,7 +5,15 @@
     </head>
 
     <body>
-        <svg class="graph"></svg>
+        <svg class="graph">
+            <defs>
+                <marker id="arrow" orient="auto"
+                        markerWidth="200" markerHeight="200" markerUnits="userSpaceOnUse"
+                        refX="6" refY="2">
+                    <path d="M0,0 V4 L2,2 Z" />
+                </marker>
+            </defs>
+        </svg>
 
         <script src="vendor/d3.v3.min.js"></script>
         <script src="graph.js"></script>

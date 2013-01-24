@@ -47,7 +47,8 @@ window.onload = function () {
         .data(force.links())
         .enter()
             .append('path')
-            .attr('id', function (d, i) { return 'p' + i; });
+            .attr('id', function (d, i) { return 'p' + i; })
+            .attr('marker-end', 'url("#arrow")');
 
     var edgeLabels = svg.append('g')
         .attr('class', 'relationLabels')
