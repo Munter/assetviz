@@ -56,15 +56,19 @@ var AssetGraph = require('assetgraph'),
             url: query.not(/^https?:/)
         }
     }),
-    assetviz = require('../index.js');
+    assetviz = require('../index.js'),
+    colors = require('colors');
 
 AssetGraph.registerTransform(assetviz, 'assetviz');
 
-
 new AssetGraph({root: rootUrl})
     .on('error', function (err) {
-        console.error((err.asset ? err.asset.urlOrDescription + ': ' : '') + err.stack);
-        process.exit(1);
+        console.error(' ✘ '.red + err.message);
+    })
+    .on('addAsset', function (asset) {
+        if (asset.url) {
+            console.warn(' ✔ '.green + asset.url);
+        }
     })
     .registerRequireJsConfig()
     .loadAssets(inputUrls)
