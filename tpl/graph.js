@@ -1,4 +1,5 @@
 /*global d3, assetgraph*/
+/*jshint onevar:false*/
 
 window.onload = function () {
     var svg = d3.select('.graph'),
