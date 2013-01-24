@@ -50,7 +50,8 @@ module.exports = function (name) {
                 data.assets.push({
                     path: asset.url ? Path.relative(assetGraph.root, asset.url) : '',
                     fileName: (asset.url ? Path.basename(asset.url) : 'i:' + asset).replace(/"/g, '\\"'),
-                    type: asset.type.toLowerCase()
+                    type: asset.type.toLowerCase(),
+                    size: asset.rawSrc.length
                 });
                 idx += 1;
             }
