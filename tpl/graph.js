@@ -6,10 +6,13 @@ window.onload = function () {
             .nodes(d3.values(assetgraph.assets))
             .links(assetgraph.relations)
             .size([window.innerWidth, window.innerHeight]) // Some browsers have trouble reading dimensions of svg elements
-            .gravity(.05)
-            .charge(-300)
-            .linkDistance(200);
-
+            .gravity(.1)
+            .charge(function (d) { return -40 - (d.size / 100); })
+            .linkDistance(function (d) {
+                return Math.sqrt(d.source.size / 100) +
+                    Math.sqrt(d.target.size / 100) +
+                    d.type.length * 8;
+            });
 
     var edges = svg.append('g')
         .attr('class', 'relations')
@@ -37,13 +40,13 @@ window.onload = function () {
             .append('g');
 
     nodes.append('circle')
-        .attr('r', 6)
+        .attr('r', function (d) { return 3 + Math.sqrt(d.size / 100); })
         .attr('class', function (d) { return d.type; })
         .call(force.drag);
 
     nodes.append('text')
         .attr('text-anchor', 'middle')
-        .attr('dy', function () { return -10; })
+        .attr('dy', function (d) { return -1 * (8 + Math.sqrt(d.size / 100)); })
         .text(function (d) { return d.fileName; });
 
 
