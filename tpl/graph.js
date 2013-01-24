@@ -24,7 +24,7 @@ window.onload = function () {
             .nodes(d3.values(assetgraph.assets))
             .links(assetgraph.relations)
             .size([window.innerWidth, window.innerHeight]) // Some browsers have trouble reading dimensions of svg elements
-            .gravity(.05)
+            .gravity(0.05)
             .charge(function (d) {
                 var charge = -200;
 
