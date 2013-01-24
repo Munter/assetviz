@@ -19,7 +19,12 @@ window.onload = function () {
         relation.distance = distance;
     });
 
-    var svg = d3.select('.graph'),
+    var graph = d3.select('.graph')
+            .attr('pointer-events', 'all')
+            .call(d3.behavior.zoom().on('zoom', function () {
+                graph.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
+            }))
+            .append('g'),
         force = d3.layout.force()
             .nodes(d3.values(assetgraph.assets))
             .links(assetgraph.relations)
@@ -41,7 +46,7 @@ window.onload = function () {
                 return d.distance;
             });
 
-    var edges = svg.append('g')
+    var edges = graph.append('g')
         .attr('class', 'relations')
         .selectAll('path')
         .data(force.links())
@@ -49,7 +54,7 @@ window.onload = function () {
             .append('path')
             .attr('id', function (d, i) { return 'p' + i; });
 
-    var edgeLabels = svg.append('g')
+    var edgeLabels = graph.append('g')
         .attr('class', 'relationLabels')
         .selectAll('text')
         .data(force.links()).enter()
@@ -63,7 +68,7 @@ window.onload = function () {
                 .attr('xlink:href', function (d, i) { return '#p' + i; })
                 .text(function (d) { return d.type; });
 
-    var nodes = svg.append('g')
+    var nodes = graph.append('g')
         .attr('class', 'assets')
         .selectAll('g')
         .data(force.nodes()).enter()
