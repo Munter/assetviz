@@ -51,7 +51,10 @@ module.exports = function (name) {
                     path: asset.url ? Path.relative(assetGraph.root, asset.url) : '',
                     fileName: (asset.url ? Path.basename(asset.url) : 'i:' + asset).replace(/"/g, '\\"'),
                     type: asset.type.toLowerCase(),
-                    size: asset.rawSrc.length
+                    size: asset.rawSrc.length,
+                    r: 3 + Math.sqrt(asset.rawSrc.length / 100),
+                    outgoing: 0,
+                    initial: asset.isInitial
                 });
                 idx += 1;
             }
@@ -63,6 +66,7 @@ module.exports = function (name) {
                 if (typeof typeString === 'function') {
                     typeString = typeString(relation);
                 }
+                data.assets[relation.from.idx].outgoing += 1;
                 data.relations.push({
                     source: relation.from.idx,
                     target: relation.to.idx,
