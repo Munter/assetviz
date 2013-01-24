@@ -24,12 +24,21 @@ window.onload = function () {
             .nodes(d3.values(assetgraph.assets))
             .links(assetgraph.relations)
             .size([window.innerWidth, window.innerHeight]) // Some browsers have trouble reading dimensions of svg elements
-            .gravity(.1)
-            .charge(function (d) { return -40 - (d.size / 100); })
+            .gravity(.05)
+            .charge(function (d) {
+                var charge = -200;
+
+                // Big files repulse more
+                charge -= (d.size / 200);
+
+                // Initial files get extra bonus
+                if (d.initial) {
+                    charge -= 1000;
+                }
+                return charge;
+            })
             .linkDistance(function (d) {
-                return Math.sqrt(d.source.size / 100) +
-                    Math.sqrt(d.target.size / 100) +
-                    d.type.length * 8;
+                return d.distance;
             });
 
     var edges = svg.append('g')
@@ -45,9 +54,12 @@ window.onload = function () {
         .selectAll('text')
         .data(force.links()).enter()
             .append('text')
-            .attr('text-anchor', 'middle')
+            .attr('text-anchor', 'end')
                 .append('textPath')
-                .attr('startOffset', '50%')
+                .attr('startOffset', function (d) {
+                    var offset = d.distance - assetgraph.assets[d.target].r - 5;
+                    return offset;
+                })
                 .attr('xlink:href', function (d, i) { return '#p' + i; })
                 .text(function (d) { return d.type; });
 
@@ -58,13 +70,13 @@ window.onload = function () {
             .append('g');
 
     nodes.append('circle')
-        .attr('r', function (d) { return 3 + Math.sqrt(d.size / 100); })
+        .attr('r', function (d) { return d.r; })
         .attr('class', function (d) { return d.type; })
         .call(force.drag);
 
     nodes.append('text')
         .attr('text-anchor', 'middle')
-        .attr('dy', function (d) { return -1 * (8 + Math.sqrt(d.size / 100)); })
+        .attr('dy', function (d) { return -(5 + d.r); })
         .text(function (d) { return d.fileName; });
 
 
