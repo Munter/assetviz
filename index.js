@@ -47,12 +47,16 @@ module.exports = function (name) {
         assetGraph.findAssets().forEach(function (asset) {
             if (asset.url || asset.outgoingRelations.length) {
                 asset.idx = idx;
+                var size = 400;
+                if (asset.url && asset.isLoaded) {
+                    size = asset.rawSrc.length;
+                }
                 data.assets.push({
                     path: asset.url ? Path.relative(assetGraph.root, asset.url) : '',
                     fileName: (asset.url ? Path.basename(asset.url) : 'i:' + asset).replace(/"/g, '\\"'),
                     type: asset.type.toLowerCase(),
-                    size: asset.rawSrc.length,
-                    r: 3 + Math.sqrt(asset.rawSrc.length / 100),
+                    size: size,
+                    r: 3 + Math.sqrt(size / 100),
                     outgoing: 0,
                     initial: asset.isInitial
                 });
