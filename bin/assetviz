@@ -43,17 +43,17 @@ if (commandLineOptions._.length > 0) {
     throw new Error("No input files and no --root specified (or it isn't file:), cannot proceed");
 }
 
+if (!rootUrl && inputUrls.length === 1) {
+    rootUrl = inputUrls[0];
+}
+
+
 var AssetGraph = require('assetgraph'),
     query = AssetGraph.query,
-    followRelationsQueryObj = query.or({to: {type: 'I18n'}}, {
-        type: query.not([
-            'JavaScriptInclude',
-            'JavaScriptExtJsRequire',
-            'JavaScriptCommonJsRequire',
-            'HtmlAnchor'
-        ]),
+    followRelationsQueryObj = query.not({
+        type: 'HtmlAnchor',
         to: {
-            url: query.not(/^https?:/)
+            url: /^https?:/
         }
     }),
     assetviz = require('../index.js'),
