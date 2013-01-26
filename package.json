@@ -18,7 +18,7 @@
     "visualization"
   ],
   "author": "Peter Müller <munter@fumle.dk>",
-  "license": "BSD",
+  "license": "MIT",
   "dependencies": {
     "assetgraph": "=1.3.2",
     "colors": "*",
