@@ -1,3 +1,5 @@
+/*jshint onevar:false*/
+
 var Path = require('path'),
     fs = require('fs'),
     relationLabelByType = {
@@ -7,7 +9,7 @@ var Path = require('path'),
         HtmlIFrame: '<iframe>',
         HtmlFrame: '<frame>',
         HtmlAlternateLink: '<link rel=alternate>',
-        HtmlConditionalComment: function (htmlConditionalComment) {return '<!--[if ' + htmlConditionalComment.condition + ']>';},
+        HtmlConditionalComment: function (htmlConditionalComment) {return '<!--[if ' + htmlConditionalComment.condition + ']>'; },
         HtmlImage: '<img>',
         HtmlAudio: '<audio>',
         HtmlShortcutIcon: 'icon',
