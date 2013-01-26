@@ -31,9 +31,11 @@ var Path = require('path'),
         CssAlphaImageLoader: 'AlphaImageLoader'
     };
 
-module.exports = function (name) {
-    name = (name || 'assetviz');
-    var targetFileName = name + '.html',
+module.exports = function (config) {
+    config = config || {};
+    var name = (name || 'assetviz'),
+        targetFileName = name + '.html',
+        verbose = config.verbose,
         data = {
             assets: [],
             relations: []
@@ -45,7 +47,7 @@ module.exports = function (name) {
             query = assetGraph.constructor.query;
 
         assetGraph.findAssets().forEach(function (asset) {
-            if (asset.url || asset.outgoingRelations.length) {
+            if (verbose || asset.url || asset.outgoingRelations.length) {
                 asset.idx = idx;
                 var size = 400;
                 if (asset.url && asset.isLoaded) {
@@ -65,7 +67,7 @@ module.exports = function (name) {
         });
 
         assetGraph.findRelations().forEach(function (relation) {
-            if ('idx' in relation.from && 'idx' in relation.to) {
+            if (verbose || ('idx' in relation.from && 'idx' in relation.to)) {
                 var typeString = relationLabelByType[relation.type] || '';
                 if (typeof typeString === 'function') {
                     typeString = typeString(relation);

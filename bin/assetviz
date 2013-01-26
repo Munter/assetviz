@@ -15,6 +15,12 @@ var optimist = require('optimist'),
             type: 'string',
             demand: false
         })
+        .options('v', {
+            alias: 'verbose',
+            describe: 'Includes inline assets in the output graph. If not set only inline elements relevant to describe relations will be shown.',
+            type: 'boolean',
+            default: false
+        })
         .wrap(72)
         .argv;
 
@@ -81,7 +87,9 @@ new AssetGraph({root: rootUrl})
         });
     })
     .populate({followRelations: followRelationsQueryObj, startAssets: {type: 'Html', isFragment: true, isInitial: true}})
-    .assetviz()
+    .assetviz({
+        verbose: commandLineOptions.verbose
+    })
     .writeStatsToStderr()
     .run(function (err) {
         if (err) {
