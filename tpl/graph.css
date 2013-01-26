@@ -60,3 +60,26 @@ circle.stylus {
 circle.html {
     fill: dodgerblue;
 }
+
+
+p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    margin: 0;
+    color: #999;
+}
+
+#generator {
+    left: auto;
+    right: 0;
+}
+
+#generator a {
+    color: #99c;
+}
+
+#generator a:hover {
+    color: #669;
+}
