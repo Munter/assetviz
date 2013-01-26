@@ -83,10 +83,10 @@ module.exports = function (config) {
             }
         });
 
-        // For some reason some data sets break if this is not done. WTF
-        data.relations.reverse();
-
         var dataString = 'var assetgraph = ' + JSON.stringify(data, undefined, 4);
+
+        // Protection against browser misinterpretation of tags in content
+        dataString = dataString.replace(/"</g, '"<"+"');
 
         vizGraph.on('error', function (err) {
                 console.error((err.asset ? err.asset.urlOrDescription + ': ' : '') + err.stack);
