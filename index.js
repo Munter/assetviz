@@ -35,8 +35,7 @@ var Path = require('path'),
 
 module.exports = function (config) {
     config = config || {};
-    var name = (name || 'assetviz'),
-        targetFileName = name + '.html',
+    var targetFileName = config.fileName || 'assetviz.html',
         verbose = config.verbose,
         data = {
             assets: [],
@@ -123,10 +122,20 @@ module.exports = function (config) {
             */
             // inline style and script
             .inlineRelations({ type: ['HtmlStyle', 'HtmlScript'] })
-            .moveAssets({type: 'Html', isInline: false}, function (asset) {
+            .if(targetFileName !== '-')
+                .moveAssets({type: 'Html', isInline: false}, function (asset) {
                 return "file://" + Path.normalize(targetFileName);
             })
-            .writeAssetsToDisc({url: /^file:/})
+                .writeAssetsToDisc({url: /^file:/})
+                .queue(function () {
+                    console.warn('Output written to: ' + targetFileName);
+                })
+            .endif()
+            .if(targetFileName === '-')
+                .queue(function (assetGraph) {
+                    console.log(assetGraph.findAssets({type: 'Html', isInline: false})[0].text);
+                })
+            .endif()
             .run(function (err) {
                 if (err) {
                     console.error(err);

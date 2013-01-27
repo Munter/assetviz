@@ -16,7 +16,7 @@ If you get installation errors for node-canvas, don't despair. It's an optional 
 
 
 ```
-$ assetviz [-h] [-v] [-r /path/to/webroot] /path/to/webroot/index.html
+$ assetviz [-h] [-v] [-r /path/to/webroot] [-o output.html] /path/to/webroot/index.html
 $ google-chrome assetviz.html
 ```
 
@@ -33,9 +33,11 @@ The command line tool outputs an html-file called `assetviz.html` in the current
 
 **-h** : **Help**
 
-**-v** : **Verbose**. Includes inline assets in the output graph. If unset only inline elements relevant to describe file relations will be shown.
+**-o** : **Output**. The file name to output to. `-` pipes tp stdout. Defaults to `./assetviz.html` if undefined.
 
 **-r** : **Root**. Tells AssetViz which directory to treat as the web root. Only useful if you are graphing an html-file that has relations outside its own directory.
+
+**-v** : **Verbose**. Includes inline assets in the output graph. If unset only inline elements relevant to describe file relations will be shown.
 
 ## AssetViz output
 

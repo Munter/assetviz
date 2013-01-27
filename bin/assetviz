@@ -2,7 +2,7 @@
 
 var optimist = require('optimist'),
     commandLineOptions = optimist
-        .usage('Output a graph visualization html of your web application to stdout\n$0 [-r <inputRootDirectory>] <htmlFile(s)>')
+        .usage('Output a graph visualization html of your web application to stdout\n$0 [-v] [-r <inputRootDirectory>] [-o <outputFileName>] <htmlFile(s)>')
         .options('h', {
             alias: 'help',
             describe: 'Show this help',
@@ -21,12 +21,30 @@ var optimist = require('optimist'),
             type: 'boolean',
             default: false
         })
+        .options('o', {
+            alias: 'output',
+            describe: 'Output filename. "-" will output the html to stdout. If unspecified defaults to "assetviz.html"',
+            type: 'string',
+            demand: false
+        })
         .wrap(72)
         .argv;
 
 if (commandLineOptions.h || commandLineOptions._.length === 0) {
     optimist.showHelp();
     process.exit(1);
+}
+
+if ('o' in commandLineOptions) {
+    var idx = commandLineOptions._.indexOf('-');
+
+    if (idx !== -1) {
+        if (typeof commandLineOptions.o !== 'boolean') {
+            commandLineOptions._.push(commandLineOptions.o);
+        }
+        commandLineOptions._.splice(idx, 1);
+        commandLineOptions.o = commandLineOptions.output = '-';
+    }
 }
 
 var urlTools = require('assetgraph/lib/util/urlTools'),
@@ -88,7 +106,8 @@ new AssetGraph({root: rootUrl})
     })
     .populate({followRelations: followRelationsQueryObj, startAssets: {type: 'Html', isFragment: true, isInitial: true}})
     .assetviz({
-        verbose: commandLineOptions.verbose
+        verbose: commandLineOptions.verbose,
+        fileName: commandLineOptions.output
     })
     .writeStatsToStderr()
     .run(function (err) {
