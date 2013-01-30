@@ -36,7 +36,7 @@ The command line tool outputs an html-file called `assetviz.html` in the current
 
 **-h** : **Help**
 
-**-o** : **Output**. The file name to output to. `-` pipes tp stdout. Defaults to `./assetviz.html` if undefined.
+**-o** : **Output**. The file name to output to. `-` pipes to stdout. Defaults to `./assetviz.html` if undefined.
 
 **-r** : **Root**. Tells AssetViz which directory to treat as the web root. Only useful if you are graphing an html-file that has relations outside its own directory.
 
