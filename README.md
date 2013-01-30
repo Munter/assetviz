@@ -1,6 +1,9 @@
 # AssetViz
 
-A command line web application source code visualization tool.
+Assetviz is a web application code base visualization tool.
+Generate a self encapsulated html-file with a force directed graph representing the assets in your project and their relations.
+
+As an added bonus this also works with any web page url as well.
 
 ![Example](https://raw.github.com/munter/assetviz/master/example/assetviz.png)
 
