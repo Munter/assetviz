@@ -79,6 +79,9 @@ window.onload = function () {
         .attr('class', function (d) { return d.type; })
         .call(force.drag);
 
+    nodes.append('title')
+        .text(function (d) { return d.fileName + ' - ' + filesize(d.size); });
+
     nodes.append('text')
         .attr('text-anchor', 'middle')
         .attr('dy', function (d) { return -(5 + d.r); })
