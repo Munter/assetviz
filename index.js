@@ -33,6 +33,20 @@ var Path = require('path'),
         CssAlphaImageLoader: 'AlphaImageLoader'
     };
 
+function hasOutgoingRelationToNonInlineAsset(asset) {
+    var hasOutgoingRelations = false,
+        outgoingRelations = asset.outgoingRelations;
+    for (var i = 0 ; i < outgoingRelations.length ; i +=1 ) {
+        var outgoingRelation = outgoingRelations[i];
+        if (outgoingRelation.to.isLoaded && outgoingRelation.to.url && outgoingRelation.to.isAsset) {
+            return true;
+        } else if (outgoingRelation.to.isLoaded && hasOutgoingRelationToNonInlineAsset(outgoingRelation.to)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 module.exports = function (config) {
     config = config || {};
     var targetFileName = config.fileName || 'assetviz.html',
@@ -42,13 +56,13 @@ module.exports = function (config) {
             relations: []
         };
 
-    return function drawGraph(assetGraph, cb) {
+    return function assetviz(assetGraph, cb) {
         var idx = 0,
             vizGraph = new assetGraph.constructor({ root: Path.normalize(Path.dirname(module.filename) + '/tpl/') }),
             query = assetGraph.constructor.query;
 
         assetGraph.findAssets().forEach(function (asset) {
-            if (verbose || asset.url || asset.outgoingRelations.length) {
+            if (verbose || asset.url ||hasOutgoingRelationToNonInlineAsset(asset)) {
                 asset.idx = idx;
                 var size = 400;
                 if (asset.url && asset.isLoaded) {
