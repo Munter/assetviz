@@ -66,3 +66,7 @@ While viewing the graph you can use the mousewheel to zoom and click+drag to pan
 ## License
 
 [MIT](https://raw.github.com/munter/assetviz/master/LICENSE.txt)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Munter/assetviz/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
