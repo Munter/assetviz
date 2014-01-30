@@ -81,17 +81,17 @@ var AssetGraph = require('assetgraph'),
         }
     }),
     assetviz = require('../index.js'),
-    colors = require('colors');
+    chalk = require('chalk');
 
 AssetGraph.registerTransform(assetviz, 'assetviz');
 
 new AssetGraph({root: rootUrl})
     .on('error', function (err) {
-        console.error(' ✘ '.red + err.message);
+        console.error(chalk.red(' ✘ ') + err.message);
     })
     .on('addAsset', function (asset) {
         if (asset.url) {
-            console.warn(' ✔ '.green + asset.url);
+            console.warn(chalk.green(' ✔ ') + asset.url);
         }
     })
     .registerRequireJsConfig()
