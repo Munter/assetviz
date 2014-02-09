@@ -1,7 +1,6 @@
 /*jshint onevar:false*/
 
 var Path = require('path'),
-    fs = require('fs'),
     relationLabelByType = {
         HtmlScript: '<script>',
         HtmlJsx: 'text/jsx',
@@ -39,9 +38,8 @@ var Path = require('path'),
     };
 
 function hasOutgoingRelationToNonInlineAsset(asset) {
-    var hasOutgoingRelations = false,
-        outgoingRelations = asset.outgoingRelations;
-    for (var i = 0 ; i < outgoingRelations.length ; i +=1 ) {
+    var outgoingRelations = asset.outgoingRelations;
+    for (var i = 0 ; i < outgoingRelations.length ; i += 1) {
         var outgoingRelation = outgoingRelations[i];
         if (outgoingRelation.to.isLoaded && outgoingRelation.to.url && outgoingRelation.to.isAsset) {
             return true;
@@ -67,7 +65,7 @@ module.exports = function (config) {
             query = assetGraph.constructor.query;
 
         assetGraph.findAssets().forEach(function (asset) {
-            if (verbose || asset.url ||hasOutgoingRelationToNonInlineAsset(asset)) {
+            if (verbose || asset.url || hasOutgoingRelationToNonInlineAsset(asset)) {
                 asset.idx = idx;
                 var size = 400;
                 if (asset.url && asset.isLoaded) {
@@ -86,7 +84,7 @@ module.exports = function (config) {
             }
         });
 
-        assetGraph.findRelations().forEach(function (relation) {
+        assetGraph.findRelations(undefined, true).forEach(function (relation) {
             if (verbose || ('idx' in relation.from && 'idx' in relation.to)) {
                 var typeString = relationLabelByType[relation.type] || '';
                 if (typeof typeString === 'function') {
@@ -142,9 +140,9 @@ module.exports = function (config) {
             // inline style and script
             .inlineRelations({ type: ['HtmlStyle', 'HtmlScript'] })
             .if(targetFileName !== '-')
-                .moveAssets({type: 'Html', isInline: false}, function (asset) {
-                return "file://" + Path.normalize(targetFileName);
-            })
+                .moveAssets({type: 'Html', isInline: false}, function () {
+                    return 'file://' + Path.normalize(targetFileName);
+                })
                 .writeAssetsToDisc({url: /^file:/})
                 .queue(function () {
                     console.warn('Output written to: ' + targetFileName);
