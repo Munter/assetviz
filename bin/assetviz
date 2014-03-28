@@ -47,7 +47,7 @@ if ('o' in commandLineOptions) {
     }
 }
 
-var urlTools = require('assetgraph/lib/util/urlTools'),
+var urlTools = require('urltools'),
     rootUrl = commandLineOptions.root && urlTools.urlOrFsPathToUrl(commandLineOptions.root, true),
     inputUrls;
 
