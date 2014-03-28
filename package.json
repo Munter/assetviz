@@ -20,7 +20,7 @@
   "author": "Peter Müller <munter@fumle.dk>",
   "license": "MIT",
   "dependencies": {
-    "assetgraph": "=1.6.1",
+    "assetgraph": "=1.6.19",
     "colors": "*",
     "optimist": "*"
   },
