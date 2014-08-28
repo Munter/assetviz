@@ -12,9 +12,12 @@ window.onload = function () {
     assetgraph.relations.forEach(function (relation) {
         var distance = 10 +
             assetgraph.assets[relation.source].r +
-            assetgraph.assets[relation.target].r +
             assetgraph.assets[relation.source].outgoing * 2 +
             relation.type.length * 6;
+
+        if (relation.target) {
+            distance += assetgraph.assets[relation.target].r;
+        }
 
         relation.distance = distance;
     });
