@@ -56,9 +56,7 @@ if (commandLineOptions._.length > 0) {
         return urlTools.urlOrFsPathToUrl(urlOrFsPath, false);
     });
     if (!rootUrl) {
-        rootUrl = urlTools.findCommonUrlPrefix(inputUrls.filter(function (inputUrl) {
-            return (/^file:/).test(inputUrl);
-        }));
+        rootUrl = urlTools.findCommonUrlPrefix(inputUrls);
     }
 } else if (rootUrl && /^file:/.test(rootUrl)) {
     inputUrls = [rootUrl + '**/*.html'];
