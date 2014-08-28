@@ -25,7 +25,7 @@ window.onload = function () {
     var graph = d3.select('.graph')
             .attr('pointer-events', 'all')
             .call(d3.behavior.zoom().on('zoom', function () {
-                graph.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
+                graph.attr('transform', 'translate(' + d3.event.translate + ')' + ' scale(' + d3.event.scale + ')');
             }))
             .append('g'),
         force = d3.layout.force()
@@ -93,12 +93,12 @@ window.onload = function () {
 
     force.on('tick', function () {
         edges.attr('d', function (d) {
-            return "M" + d.source.x + "," + d.source.y +
-                   " " + d.target.x + "," + d.target.y;
+            return 'M' + d.source.x + ',' + d.source.y +
+                   ' ' + d.target.x + ',' + d.target.y;
         });
 
-        nodes.attr("transform", function (d) {
-            return "translate(" + d.x + "," + d.y + ")";
+        nodes.attr('transform', function (d) {
+            return 'translate(' + d.x + ',' + d.y + ')';
         });
     }).start();
 };
