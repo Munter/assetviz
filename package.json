@@ -20,10 +20,10 @@
   "author": "Peter Müller <munter@fumle.dk>",
   "license": "MIT",
   "dependencies": {
-    "assetgraph": "^1.8.0",
-    "chalk": "0.4.0",
-    "optimist": "0.6.0",
-    "urltools": "^0.1.1"
+    "assetgraph": "1.11.1",
+    "chalk": "0.5.1",
+    "optimist": "0.6.1",
+    "urltools": "0.2.0"
   },
   "bin": "./bin/assetviz"
 }
