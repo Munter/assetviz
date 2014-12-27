@@ -1,4 +1,7 @@
-# AssetViz
+AssetViz
+========
+[![NPM version](https://badge.fury.io/js/assetviz.svg)](http://badge.fury.io/js/assetviz)
+[![Dependency Status](https://david-dm.org/Munter/assetviz.svg)](https://david-dm.org/Munter/assetviz)
 
 Assetviz is a web application code base visualization tool.
 Generate a self encapsulated html-file with a force directed graph representing the assets in your project and their relations.
