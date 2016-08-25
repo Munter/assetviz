@@ -73,10 +73,7 @@ if (!rootUrl && inputUrls.length === 1) {
 var AssetGraph = require('assetgraph'),
     query = AssetGraph.query,
     followRelationsQueryObj = query.not({
-        type: 'HtmlAnchor',
-        to: {
-            url: /^https?:/
-        }
+        type: 'HtmlAnchor'
     }),
     assetviz = require('../index.js'),
     chalk = require('chalk');
@@ -92,7 +89,6 @@ new AssetGraph({root: rootUrl})
             console.warn(chalk.green(' ✔ ') + asset.url);
         }
     })
-    .registerRequireJsConfig()
     .loadAssets(inputUrls)
     .populate({followRelations: followRelationsQueryObj})
     .queue(function fixBaseAssetsOfUnresolvedOutgoingRelationsFromHtmlFragments(assetGraph) {

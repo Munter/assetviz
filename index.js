@@ -86,10 +86,25 @@ module.exports = function (config) {
 
         assetGraph.findRelations(undefined, true).forEach(function (relation) {
             if (verbose || ('idx' in relation.from && 'idx' in relation.to)) {
-                var typeString = relationLabelByType[relation.type] || '';
+                var typeString = relationLabelByType[relation.type] || relation.type;
                 if (typeof typeString === 'function') {
                     typeString = typeString(relation);
                 }
+
+                if (typeof relation.to.idx === 'undefined') {
+                  relation.to.idx = idx;
+                  data.assets.push({
+                      path: relation.crossorigin ? relation.to.url : Path.relative(assetGraph.root, relation.to.url),
+                      fileName: (relation.to.url ? relation.to.url : 'i:' + relation.to).replace(/"/g, '\\"'),
+                      type: relation.to.type && relation.to.type.toLowerCase(),
+                      size: 0,
+                      r: 3,
+                      outgoing: 0,
+                      initial: relation.to.isInitial
+                  });
+                  idx += 1;
+                }
+
                 data.assets[relation.from.idx].outgoing += 1;
                 data.relations.push({
                     source: relation.from.idx,
